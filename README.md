@@ -1,6 +1,6 @@
 # todo.vim
 
-**Intuitive TODO List**
+An **intuitive** TODO List written in **pure VimL**
 
 ![demo](https://i.ibb.co/7SWD04N/todo-vim-demo.gif) 
 
