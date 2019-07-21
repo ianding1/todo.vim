@@ -64,11 +64,11 @@ function! todo#List() abort
     let [_, imp, text; _] = matchlist(getline(todo_lnum), 
           \ s:pending_todo_pattern)
     if imp ==# '!'
-      call add(imp1_list, [todo_lnum, '!' . text])
+      call add(imp1_list, [todo_lnum, '! ' . text])
     elseif imp ==# '!!'
-      call add(imp2_list, [todo_lnum, '!!' . text])
+      call add(imp2_list, [todo_lnum, '!! ' . text])
     elseif imp ==# '!!!'
-      call add(imp3_list, [todo_lnum, '!!!' . text])
+      call add(imp3_list, [todo_lnum, '!!! ' . text])
     else
       call add(todo_list, [todo_lnum, text])
     endif
