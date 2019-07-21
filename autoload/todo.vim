@@ -111,11 +111,14 @@ function! todo#Toggle() abort
   let [_, line; _] = getcurpos()
   let text = getline(line)
 
+
   if text =~# '\v^\[ \]'
-    s/\V[ ]/[X]
+    let newtext = substitute(text, '\V[ ]', '[X]', '')
+    call setline(line, newtext)
     normal! zX
   elseif text =~# '\v^\[X\]'
-   normal! zo
-    s/\V[X]/[ ]
+    normal! zo
+    let newtext = substitute(text, '\V[X]', '[ ]', '')
+    call setline(line, newtext)
   endif
 endfunction
