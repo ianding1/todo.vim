@@ -25,6 +25,5 @@ noremap <silent> <Plug>(todo-next) :call todo#NextTodo()<cr>
 noremap <silent> <Plug>(todo-prev) :call todo#PrevTodo()<cr>
 noremap <silent> <Plug>(todo-list) :call todo#List()<cr>
 noremap <silent> <Plug>(todo-toggle) :call todo#Toggle()<cr>
-nmap <silent> <expr> <tab> todo#IsTodo() ? "\<Plug>(todo-toggle)" : "\<tab>"
 
 let b:delimitMate_expand_space = 0
