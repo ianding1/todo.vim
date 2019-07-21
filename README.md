@@ -2,7 +2,7 @@
 
 **Intuitive TODO List**
 
-![demo](https://media.giphy.com/media/IbljaP6uzQrepwvMhw/giphy.gif) 
+![demo](https://i.ibb.co/7SWD04N/todo-vim-demo.gif) 
 
 > Demo recorded in Neovim using **onedark.vim**
 
