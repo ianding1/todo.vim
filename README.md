@@ -33,7 +33,7 @@ nmap <silent> <expr> <tab> todo#IsTodo() ? "\<Plug>(todo-toggle)" : "\<tab>"
 
 ## Notes
 
-1. **todo.vim** uses folding to collapse DONE items. The most basic commands are `zo` to open a fold and `zc` to close an fold. See `:h folding` for details. If you want to disable this feature, add `let g:todo_done_folded = 0` to your vimrc.
+1. **todo.vim** uses folding to collapse DONE items. The most basic commands are `zo` to open a fold and `zc` to close a fold. See `:h folding` for details. If you want to disable this feature, add `let g:todo_done_folded = 0` to your vimrc.
 2. **todo.vim** uses location list to list all the TODO items in the buffer, which are sorted by the priority (the number of `!` after `[ ]`, at most 3).
 
 ## Customizations
