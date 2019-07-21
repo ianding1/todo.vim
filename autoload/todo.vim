@@ -1,37 +1,23 @@
 let s:todo_pattern = '\v^\[[ X]\]!{,3} '
-let s:header_pattern = '\v^# '
 let s:pending_todo_pattern = '\v^\[ \](!{,3}) (.*)'
-let s:toplevel_pattern = '\v^(#|(\[[ X]\]!{,3}) )'
-
-
-function! todo#FoldExpr() abort
-  let curline = getline(v:lnum)
-  if match(curline, s:toplevel_pattern) == 0
-    return '0'
-  endif
-
-  let saved_pos = getcurpos()[:3]
-  call cursor(v:lnum, 1)
-
-  let todo_lnum = search(s:todo_pattern, 'bnW')
-  let header_lnum = search(s:header_pattern, 'bnW')
-  call setpos('.', saved_pos)
-
-  if todo_lnum != 0 && (header_lnum == 0 || header_lnum < todo_lnum)
-    return '1'
-  endif
-
-  return '0'
-endfunction
 
 
 function! todo#FoldText() abort
-  let startline = getline(v:foldstart)
-  if strchars(startline) > 70
-    return startline . ' ...'
+  return getline(v:foldstart)
+endfunction
+
+
+function! todo#FoldExpr(lnum) abort
+  let curline = getline(a:lnum)
+  if curline =~# '\v(#|(\[ \]!{,3})) '
+    return '0'
   endif
 
-  return startline
+  if curline =~# '\v\[X\]!{,3} '
+    return '>1'
+  endif
+
+  return '='
 endfunction
 
 
@@ -111,4 +97,25 @@ function! todo#List() abort
   endif
 
   execute 'lopen ' . loc_height
+endfunction
+
+
+function! todo#IsTodo() abort
+  let [_, line; _] = getcurpos()
+  let text = getline(line)
+  return text =~# s:todo_pattern
+endfunction
+
+
+function! todo#Toggle() abort
+  let [_, line; _] = getcurpos()
+  let text = getline(line)
+
+  if text =~# '\v^\[ \]'
+    s/\V[ ]/[X]
+    normal! zX
+  elseif text =~# '\v^\[X\]'
+   normal! zo
+    s/\V[X]/[ ]
+  endif
 endfunction
