@@ -1,7 +1,3 @@
-if !exists('g:todo_done_folded')
-  let g:todo_done_folded = 1
-endif
-
 setlocal autoindent
 setlocal nocindent
 setlocal nosmartindent
@@ -25,5 +21,9 @@ noremap <silent> <Plug>(todo-next) :call todo#NextTodo()<cr>
 noremap <silent> <Plug>(todo-prev) :call todo#PrevTodo()<cr>
 noremap <silent> <Plug>(todo-list) :call todo#List()<cr>
 noremap <silent> <Plug>(todo-toggle) :call todo#Toggle()<cr>
+
+command! -nargs=0 TodoCheckUpstream call todo#CheckUpstream(expand('%:h'))
+command! -nargs=0 TodoPull call todo#Pull(expand('%:h'))
+command! -nargs=0 TodoCommitPush call todo#CommitPush(expand('%:h'))
 
 let b:delimitMate_expand_space = 0
