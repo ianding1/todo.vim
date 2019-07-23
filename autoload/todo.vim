@@ -130,7 +130,6 @@ endfunction
 function! todo#CheckUpstream(dir) abort
   if has('nvim')
     if s:active_job != 0
-      echomsg 'todo#CheckUpstream: active job exists'
       return
     endif
 
@@ -152,7 +151,6 @@ endfunction
 function! todo#Pull(dir) abort
   if has('nvim')
     if s:active_job != 0
-      echomsg 'todo#Pull: active job exists'
       return
     endif
 
@@ -167,12 +165,11 @@ endfunction
 function! todo#CommitPush(dir) abort
   if has('nvim')
     if s:active_job != 0
-      echomsg 'todo#Pull: active job exists'
       return
     endif
 
     let commit_msg = 'Committed by todo.vim at ' . strftime('%c')
-    let cmd = 'cd ' . a:dir . 
+    let cmd = 'cd ' . a:dir .
           \ ' && git add . && git commit -m "' . commit_msg . '" && git push'
 
     let s:active_job = jobstart(cmd,
@@ -185,7 +182,6 @@ endfunction
 
 function! s:OnCheckUpstreamData(...) dict abort
   let data = a:2
-  echomsg 'todo#OnCheckUpstreamData: receive ' . string(data)
   if match(data[0], 'behind') != -1
     " The upstream branch is ahead of the local branch.
     let self.action = 'pull'
@@ -197,8 +193,6 @@ function! s:OnCheckUpstreamExit(...) dict abort
   let exit_code = a:2
   let s:active_job = 0
 
-  echomsg 'todo#OnCheckUpstreamExit: exit code ' . exit_code
-
   if s:timer != 0
     call timer_stop(s:timer)
     let s:timer = 0
@@ -209,7 +203,6 @@ function! s:OnCheckUpstreamExit(...) dict abort
   endif
 
   if self.action ==# 'pull'
-    echomsg 'todo#OnCheckUpstreamExit: pull'
     call todo#Pull(self.dir)
   endif
 endfunction
@@ -218,8 +211,6 @@ endfunction
 function! s:OnPullExit(...) dict abort
   let exit_code = a:2
   let s:active_job = 0
-
-  echomsg 'todo#OnPullExit: exit code ' . exit_code
 
   if s:timer != 0
     call timer_stop(s:timer)
@@ -238,8 +229,6 @@ function! s:OnCommitPushExit(...) dict abort
   let exit_code = a:2
   let s:active_job = 0
 
-  echomsg 'todo#OnCommitPushExit: exit code ' . exit_code
-
   if s:timer != 0
     call timer_stop(s:timer)
     let s:timer = 0
@@ -254,8 +243,6 @@ endfunction
 
 
 function! s:KillJob(...) abort
-  echomsg 'todo#KillJob: executed'
-
   let s:timer = 0
   if s:active_job != 0
     call jobstop(s:active_job)
