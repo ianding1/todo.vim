@@ -163,6 +163,13 @@ endfunction
 
 
 function! todo#CommitPush(dir) abort
+  if has('timers')
+    call timer_start(100, function('s:DoCommitPush', [a:dir]))
+  endif
+endfunction
+
+
+function! s:DoCommitPush(dir, ...) abort
   if has('nvim')
     if s:active_job != 0
       return
@@ -175,7 +182,7 @@ function! todo#CommitPush(dir) abort
     let s:active_job = jobstart(cmd,
           \ {'on_exit': function('s:OnCommitPushExit')})
 
-    let s:timer = timer_start(10000, function('s:KillJob'))
+    let s:timer = timer_start(30000, function('s:KillJob'))
   endif
 endfunction
 
