@@ -2,7 +2,7 @@
 
 An **intuitive** TODO List written in **pure VimL**
 
-![demo](https://i.ibb.co/7SWD04N/todo-vim-demo.gif) 
+![demo](https://i.ibb.co/7SWD04N/todo-vim-demo.gif)
 
 > Demo recorded in Neovim using **onedark.vim**
 
@@ -29,12 +29,17 @@ nmap <silent> <leader>tl <Plug>(todo-list)
 nmap <silent> <expr> <tab> todo#IsTodo() ? "\<Plug>(todo-toggle)" : "\<tab>"
 ```
 
-**Note: Don't use `nnoremap` to map these keys. Use double quotes instead of single quotes. And don't forget the backslashes.**
+**Note: Don't use `nnoremap` to map these keys. Use double quotes instead of
+single quotes. And don't forget the backslashes.**
 
 ## Notes
 
-1. **todo.vim** uses folding to collapse DONE items. The most basic commands are `zo` to open a fold and `zc` to close a fold. See `:h folding` for details. If you want to disable this feature, add `let g:todo_done_folded = 0` to your vimrc.
-2. **todo.vim** uses location list to list all the TODO items in the buffer, which are sorted by the priority (the number of `!` after `[ ]`, at most 3).
+1. **todo.vim** uses folding to collapse DONE items. The most basic commands
+   are `zo` to open a fold and `zc` to close a fold. See `:h folding` for
+   details. If you want to disable this feature, add `let g:todo_done_folded =
+   0` to your vimrc.
+2. **todo.vim** uses location list to list all the TODO items in the buffer,
+   which are sorted by the priority (the number of `!` after `[ ]`, at most 3).
 
 ## Customizations
 
@@ -42,3 +47,10 @@ nmap <silent> <expr> <tab> todo#IsTodo() ? "\<Plug>(todo-toggle)" : "\<tab>"
 " Set to 0 to disable folding DONE items (enabled by default).
 let g:todo_done_folded = 1
 ```
+
+## Auto Git Sync
+
+If the last line of the todo file contains `// todo.vim: autogitsync`, then
+each time the file is opened, todo.vim will do git-pull, and each time the file
+is written, todo.vim will commit all the changes and do git-push. This can
+be very help with Gist to maintain a **cloud todo list**.
