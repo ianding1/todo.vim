@@ -256,3 +256,15 @@ function! s:KillJob(...) abort
     let s:active_job = 0
   endif
 endfunction
+
+
+function! todo#HasAutoGitSync() abort
+  let match_groups = matchlist(getline('$'), 
+        \ '\v^\s*\/\/\s*todo\.vim\s*:\s*(.*)')
+  if len(match_groups) > 0
+    let attrs = map(split(match_groups[1], ','), {_, s -> trim(s)})
+    return index(attrs, 'autosyncgit') != -1
+  else
+    return 0
+  endif
+endfunction

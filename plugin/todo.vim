@@ -9,7 +9,9 @@ endif
 if g:todo_sync_git
   augroup todo_vim
     autocmd!
-    au BufReadPost *.todo TodoCheckUpstream
-    au BufWritePost *.todo TodoCommitPush
+    au BufReadPost *.todo
+          \ if todo#HasAutoGitSync() | execute 'TodoCheckUpstream' | endif
+    au BufWritePost *.todo 
+          \ if todo#HasAutoGitSync() | execute 'TodoCommitPush' | endif
   augroup END
 endif
